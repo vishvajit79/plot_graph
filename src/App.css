@@ -159,3 +159,17 @@ input.question:invalid ~ input[type="submit"], textarea.question:invalid ~ input
     opacity: 1;
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #quadratic-with-options, #quadratic-with-options * {
+    visibility: visible;
+  }
+  #quadratic-with-options {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

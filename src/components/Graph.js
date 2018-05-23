@@ -15,6 +15,10 @@ class Graph extends Component {
     };
   }
   
+  printCanvasOnly = () => {
+    window.print();
+  };
+  
   graphFunction = () => {
     if(this.state.equation) {
       try {
@@ -99,7 +103,8 @@ class Graph extends Component {
           <label htmlFor="equation"><span>Equation...sin(x)</span></label>
           <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange}/>
           <label htmlFor="boundaries"><span>Boundaries...[-6,6]</span></label>
-          <button className="btn btn-outline-dark m-3">Draw</button>
+          <button type="submit" className="btn btn-outline-dark m-3">Draw</button>
+          <button type="button" className="btn btn-outline-dark m-3" onClick={this.printCanvasOnly}>Print</button>
         </form>
       </div>
     );
