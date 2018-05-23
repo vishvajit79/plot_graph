@@ -1,18 +1,18 @@
 # Accenture React Exercise
 
-##First step 
-
-###Install 
+Install 
 ```shell
 npm i
 ```
 
-###Start JSON Server
+Start JSON Server
 ```angular2html
 json-server --watch --port=7000 db.json
 ```
 
-###Run React App
+React App
+
+
 For Prod
 ```angular2html
 npm build
