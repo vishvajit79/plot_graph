@@ -1,11 +1,13 @@
 import React from 'react';
 import {getFromStorage } from '../utils/storage';
+import Graph from "./Graph";
 
 class History extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: []
+      history: [],
+      clickedItem: ''
     }
   }
   
@@ -13,8 +15,10 @@ class History extends React.Component {
     this.updateData();
   }
   
-  useItem = () => {
-  
+  useItem = (e, item) => {
+    this.setState({
+      clickedItem: item
+    })
   };
   
   updateData = async () => {
@@ -22,17 +26,23 @@ class History extends React.Component {
       this.setState({
         history: data
       });
-    console.log(this.state.history);
   };
   render() {
     return(
-      <div className="App-header m-2 p-2">
-        <h2 className="App-title">History</h2>
-        <button type="button" onClick={this.updateData}>Update History</button>
-        {this.state.history.map(user => {
-          return <li key={user} onClick={this.useItem}>{user}</li>
-        })}
-      </div>
+        <div className="row">
+        <div className="col-md-10">
+          <Graph {...this.state}/>
+        </div>
+        <div className="col-md-2">
+          <h2 className="App-title m-2">History</h2>
+          <button type="button" className="btn btn-outline-dark m-2" onClick={this.updateData}>Update History</button>
+          <div className="list-group">
+            {this.state.history.map(user => {
+              return <a key={user} onClick={(e) => this.useItem(e,user)} className="list-group-item list-group-item-action">{user}</a>
+            })}
+          </div>
+        </div>
+        </div>
     );
   }
 }

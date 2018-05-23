@@ -96,10 +96,11 @@ class Graph extends Component {
   render() {
     return(
       <div>
-        <h2 className="App-title">Graph</h2>
+        <h2>Graph</h2>
+        <hr />
         { this.state.errorMessage && <p className="text-danger">{ this.state.errorMessage }</p>}
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="equation" className="question" onChange={this.handleEquationChange} required/>
+          <input type="text" name="equation" className="question" onChange={this.handleEquationChange} value={this.props.clickedItem} autoFocus={true} required/>
           <label htmlFor="equation"><span>Equation...sin(x)</span></label>
           <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange}/>
           <label htmlFor="boundaries"><span>Boundaries...[-6,6]</span></label>
