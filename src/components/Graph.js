@@ -18,10 +18,17 @@ class Graph extends Component {
     };
   }
   
+  /**
+   * THIS FUNCTION WILL CALL PRINT WINDOWS FEATURE IN THE BROWSER
+   */
   printCanvasOnly = () => {
     window.print();
   };
   
+  /**
+   * IF PROPS ARE RECEIVED FROM HISTORY THEN STATE IS UPDATED
+   * @param nextProps
+   */
   componentWillReceiveProps(nextProps){
     if(this.state.clickedEquation !== nextProps.clickedEquation)
     {
@@ -31,6 +38,9 @@ class Graph extends Component {
     }
   }
   
+  /**
+   * THIS FUNCTION WILL CALL THE D3.JS FUNCTION PLOT TO PLOT THE CANVAS
+   */
   graphFunction = () => {
     if(this.state.equation) {
       try {
@@ -59,6 +69,10 @@ class Graph extends Component {
     }
   };
   
+  /**
+   * THIS METHOD IS CALLED WHEN INPUT BOX CHANGES FOR EQUATION
+   * @param event
+   */
   handleEquationChange = (event) => {
     const equation = event.target.value;
     if(equation) {
@@ -70,6 +84,10 @@ class Graph extends Component {
     }
   };
   
+  /**
+   * THIS METHOD IS CALLED WHEN INPUT BOX CHANGES FOR BOUNDARIES
+   * @param event
+   */
   handleBoundaryChange = (event) => {
     const boundaries = event.target.value;
     if(boundaries) {
@@ -82,6 +100,11 @@ class Graph extends Component {
     }
   };
   
+  /**
+   * THIS METHOD IS CALLED WHEN FORM IS SUBMITTED AND IT WILL SAVE THE DATA AS A HISTORY USING AXIOS TO JSON FILE
+   * @param event
+   * @returns {Promise<void>}
+   */
   handleSubmit = async (event) => {
     event.preventDefault();
     const equation = event.target.elements.equation.value;
@@ -122,7 +145,7 @@ class Graph extends Component {
         <hr />
         { this.state.errorMessage && <p className="text-danger">{ this.state.errorMessage }</p>}
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="equation" className="question" onChange={this.handleEquationChange} value={this.state.clickedEquation} required/>
+          <input type="text" id="myInput"  data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails"  name="equation" className="question" onChange={this.handleEquationChange} value={this.state.clickedEquation} required/>
           <label htmlFor="equation"><span>Equation...sin(x)</span></label>
           <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange} />
           <label htmlFor="boundaries"><span>Boundaries...[-6,6]</span></label>

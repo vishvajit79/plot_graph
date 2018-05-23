@@ -18,6 +18,11 @@ class History extends React.Component {
     this.updateData();
   }
   
+  /**
+   * THIS FUNCTION SENDS THE SELECTED VALUE FROM HISTORY PANEL TO THE GRAPH COMPONENT AND UPDATES THE TEXT INPUT WITHT THE ITEM.EQUATION
+   * @param e
+   * @param item
+   */
   useItem = (e, item) => {
     this.setState({
       clickedEquation: item.equation,
@@ -26,6 +31,10 @@ class History extends React.Component {
     })
   };
   
+  /**
+   * THIS FUNCTION UPDATES THE DATA FROM JSON FILE TO THE HISTORY PANEL. YOU CAN MANUALLY UPDATE BY CLICKING THE BUTTON
+   * @returns {Promise<void>}
+   */
   updateData = async () => {
     // const data  = await getFromStorage('93V7CR3ActSZVCwkr3Xv') ? getFromStorage('93V7CR3ActSZVCwkr3Xv') : [];
     //   this.setState({
@@ -48,6 +57,7 @@ class History extends React.Component {
       });
     }).catch(() => {});
   };
+  
   render() {
     return(
         <div className="row">
