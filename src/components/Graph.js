@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import d3 from "d3";
 import functionPlot from 'function-plot';
+import { setIntStorage, getFromStorage } from '../utils/storage';
 
 window.d3 = d3;
 
@@ -81,6 +82,11 @@ class Graph extends Component {
       });
     }
     this.graphFunction();
+    let itemsArray  = getFromStorage('93V7CR3ActSZVCwkr3Xv') ? getFromStorage('93V7CR3ActSZVCwkr3Xv') : [];
+    if(!itemsArray.includes(event.target.elements.equation.value)) {
+      itemsArray.push(event.target.elements.equation.value);
+      setIntStorage('93V7CR3ActSZVCwkr3Xv', itemsArray);
+    }
   };
   
   render() {
