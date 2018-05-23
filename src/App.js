@@ -13,10 +13,10 @@ class App extends Component {
           <h1 className="App-title">Welcome to Function Plot Application</h1>
         </header>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-10 col-12">
             <Graph/>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-2 col-12">
             <History/>
           </div>
         </div>
