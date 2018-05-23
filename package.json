@@ -6,6 +6,7 @@
     "bootstrap": "^4.1.1",
     "d3": "^3.5.17",
     "function-plot": "^1.18.1",
+    "jsonfile": "^4.0.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "1.1.4"
@@ -15,5 +16,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "json-server": "^0.12.2"
   }
 }
