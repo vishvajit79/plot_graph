@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import d3 from "d3";
 import functionPlot from 'function-plot';
-import { setIntStorage, getFromStorage } from '../utils/storage';
+// import { setIntStorage, getFromStorage } from '../utils/storage';
+import axios from "axios/index";
 
 window.d3 = d3;
 
@@ -10,14 +11,25 @@ class Graph extends Component {
     super(props);
     this.state = {
       equation: '',
-      boundaries: [-6,6],
-      errorMessage: ''
+      startBoundary: -6,
+      endBoundary: 5,
+      errorMessage: '',
+      clickedEquation: '',
     };
   }
   
   printCanvasOnly = () => {
     window.print();
   };
+  
+  componentWillReceiveProps(nextProps){
+    if(this.state.clickedEquation !== nextProps.clickedEquation)
+    {
+      this.setState({
+        clickedEquation: nextProps.clickedEquation
+      });
+    }
+  }
   
   graphFunction = () => {
     if(this.state.equation) {
@@ -29,7 +41,7 @@ class Graph extends Component {
           disableZoom: true,
           xAxis: {
             label: 'x - axis',
-            domain: this.state.boundaries
+            domain: [this.state.startBoundary, this.state.endBoundary]
           },
           yAxis: {
             label: 'y - axis'
@@ -52,6 +64,7 @@ class Graph extends Component {
     if(equation) {
       this.setState({
         equation: equation,
+        clickedEquation: equation,
         errorMessage: ''
       });
     }
@@ -60,16 +73,16 @@ class Graph extends Component {
   handleBoundaryChange = (event) => {
     const boundaries = event.target.value;
     if(boundaries) {
-      console.log(event.target.value);
-      console.log(JSON.parse(event.target.value));
+      const newBoundary = boundaries.split(',');
       this.setState({
-        boundaries: boundaries,
+        startBoundary: parseInt(newBoundary[0]),
+        endBoundary: parseInt(newBoundary[1]),
         errorMessage: ''
       });
     }
   };
   
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     const equation = event.target.elements.equation.value;
     const boundaries = event.target.elements.boundaries.value;
@@ -80,17 +93,26 @@ class Graph extends Component {
       });
     }
     if(boundaries) {
+      const newBoundary = boundaries.split(',');
       this.setState({
-        boundaries: boundaries,
+        startBoundary: parseInt(newBoundary[0]),
+        endBoundary: parseInt(newBoundary[1]),
         errorMessage: ''
       });
     }
     this.graphFunction();
-    let itemsArray  = getFromStorage('93V7CR3ActSZVCwkr3Xv') ? getFromStorage('93V7CR3ActSZVCwkr3Xv') : [];
-    if(!itemsArray.includes(event.target.elements.equation.value)) {
-      itemsArray.push(event.target.elements.equation.value);
-      setIntStorage('93V7CR3ActSZVCwkr3Xv', itemsArray);
-    }
+    // let itemsArray  = getFromStorage('93V7CR3ActSZVCwkr3Xv') ? getFromStorage('93V7CR3ActSZVCwkr3Xv') : [];
+    // if(!itemsArray.includes(event.target.elements.equation.value)) {
+    //   itemsArray.push(event.target.elements.equation.value);
+    //   setIntStorage('93V7CR3ActSZVCwkr3Xv', itemsArray);
+    // }
+      await axios.post('http://localhost:7000/history', {
+        equation: this.state.equation,
+        startBoundary: this.state.startBoundary,
+        endBoundary: this.state.endBoundary
+      }).then((res) => {
+      }).catch(() => {
+      });
   };
   
   render() {
@@ -100,9 +122,9 @@ class Graph extends Component {
         <hr />
         { this.state.errorMessage && <p className="text-danger">{ this.state.errorMessage }</p>}
         <form onSubmit={this.handleSubmit}>
-          <input type="text" name="equation" className="question" onChange={this.handleEquationChange} value={this.props.clickedItem} autoFocus={true} required/>
+          <input type="text" name="equation" className="question" onChange={this.handleEquationChange} value={this.state.clickedEquation} required/>
           <label htmlFor="equation"><span>Equation...sin(x)</span></label>
-          <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange}/>
+          <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange} />
           <label htmlFor="boundaries"><span>Boundaries...[-6,6]</span></label>
           <button type="submit" className="btn btn-outline-dark m-3">Draw</button>
           <button type="button" className="btn btn-outline-dark m-3" onClick={this.printCanvasOnly}>Print</button>

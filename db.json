@@ -1,11 +1,72 @@
 {
   "sample": [
-    { "id": 1, "equation": "sin(x)", "boundaries": "-6,6" },
-    { "id": 2, "equation": "cos(x)", "boundaries": "-6,6" },
-    { "id": 3, "equation": "x^2", "boundaries": "-6,6" },
-    { "id": 4, "equation": "x+1", "boundaries": "-6,6" },
-    { "id": 5, "equation": "2*x+10", "boundaries": "-6,6" }
+    {
+      "id": 1,
+      "equation": "sin(x)",
+      "startBoundary": -6,
+      "endBoundary": 5
+    },
+    {
+      "id": 2,
+      "equation": "cos(x)",
+      "startBoundary": -5,
+      "endBoundary": 5
+    },
+    {
+      "id": 3,
+      "equation": "x^2",
+      "startBoundary": -6,
+      "endBoundary": 5
+    },
+    {
+      "id": 4,
+      "equation": "x+1",
+      "startBoundary": -4,
+      "endBoundary": 5
+    },
+    {
+      "id": 5,
+      "equation": "2*x+10",
+      "startBoundary": -5,
+      "endBoundary": 5
+    }
   ],
   "history": [
+    {
+      "equation": "sin(x)",
+      "startBoundary": -6,
+      "endBoundary": 6,
+      "id": 1
+    },
+    {
+      "equation": "sin(x)",
+      "startBoundary": -6,
+      "endBoundary": 6,
+      "id": 2
+    },
+    {
+      "equation": "sin(x)",
+      "startBoundary": -6,
+      "endBoundary": null,
+      "id": 3
+    },
+    {
+      "equation": "cos(x)",
+      "startBoundary": -9,
+      "endBoundary": 9,
+      "id": 4
+    },
+    {
+      "equation": "cos(x)",
+      "startBoundary": -9,
+      "endBoundary": 9,
+      "id": 5
+    },
+    {
+      "equation": "cos(x)",
+      "startBoundary": -9,
+      "endBoundary": 9,
+      "id": 6
+    }
   ]
 }
