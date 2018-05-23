@@ -46,8 +46,8 @@ class Graph extends Component {
       try {
         functionPlot({
           target: '#quadratic-with-options',
-          width: 400,
-          height: 400,
+          width: 350,
+          height: 350,
           disableZoom: true,
           xAxis: {
             label: 'x - axis',
@@ -98,6 +98,14 @@ class Graph extends Component {
         errorMessage: ''
       });
     }
+    else {
+      if(this.state.startBoundary === '' || this.state.endBoundary === '' || this.state.startBoundary === null || this.state.endBoundary === null){
+        this.setState({
+          startBoundary: -5,
+          endBoundary: 5
+        });
+      }
+    }
   };
   
   /**
@@ -130,12 +138,13 @@ class Graph extends Component {
     //   setIntStorage('93V7CR3ActSZVCwkr3Xv', itemsArray);
     // }
       await axios.post('http://localhost:7000/history', {
-        equation: this.state.equation,
+        equation: event.target.elements.equation.value,
         startBoundary: this.state.startBoundary,
         endBoundary: this.state.endBoundary
       }).then((res) => {
       }).catch(() => {
       });
+    
   };
   
   render() {
@@ -146,9 +155,9 @@ class Graph extends Component {
         { this.state.errorMessage && <p className="text-danger">{ this.state.errorMessage }</p>}
         <form onSubmit={this.handleSubmit}>
           <input type="text" id="myInput"  data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails"  name="equation" className="question" onChange={this.handleEquationChange} value={this.state.clickedEquation} required/>
-          <label htmlFor="equation"><span>Equation...sin(x)</span></label>
+          <label htmlFor="equation"><span>sin(x)</span></label>
           <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange} />
-          <label htmlFor="boundaries"><span>Boundaries...[-6,6]</span></label>
+          <label htmlFor="boundaries"><span>Boundary: -6,6</span></label>
           <button type="submit" className="btn btn-outline-dark m-3">Draw</button>
           <button type="button" className="btn btn-outline-dark m-3" onClick={this.printCanvasOnly}>Print</button>
         </form>

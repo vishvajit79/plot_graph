@@ -41,20 +41,10 @@ class History extends React.Component {
     //     history: data
     //   });
     await axios.get('http://localhost:7000/history').then((res) => {
-      let lookup = {};
-      let items = res.data;
-      let result = [];
-  
-      for (let item, i = 0; item = items[i++];) {
-        let name = item.equation;
-        if (!(name in lookup)) {
-          lookup[name] = 1;
-          result.push(res.data[i]);
-        }
-      }
       this.setState({
-        history: result
+        history: res.data
       });
+      console.log(this.state.history);
     }).catch(() => {});
   };
   
