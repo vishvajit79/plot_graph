@@ -30,12 +30,9 @@ class Graph extends Component {
    * @param nextProps
    */
   componentWillReceiveProps(nextProps){
-    if(this.state.clickedEquation !== nextProps.clickedEquation)
-    {
       this.setState({
-        clickedEquation: nextProps.clickedEquation
+        equation: nextProps.clickedEquation
       });
-    }
   }
   
   /**
@@ -89,12 +86,17 @@ class Graph extends Component {
    * @param event
    */
   handleBoundaryChange = (event) => {
+    this.setState({
+      startBoundary: -5,
+      endBoundary: 5,
+      errorMessage: ''
+    });
     const boundaries = event.target.value;
     if(boundaries) {
       const newBoundary = boundaries.split(',');
       this.setState({
-        startBoundary: parseInt(newBoundary[0]),
-        endBoundary: parseInt(newBoundary[1]),
+        startBoundary: parseInt(newBoundary[0], 10),
+        endBoundary: parseInt(newBoundary[1], 10),
         errorMessage: ''
       });
     }
@@ -123,11 +125,16 @@ class Graph extends Component {
         errorMessage: ''
       });
     }
+    this.setState({
+      startBoundary: -5,
+      endBoundary: 5,
+      errorMessage: ''
+    });
     if(boundaries) {
       const newBoundary = boundaries.split(',');
       this.setState({
-        startBoundary: parseInt(newBoundary[0]),
-        endBoundary: parseInt(newBoundary[1]),
+        startBoundary: parseInt(newBoundary[0], 10),
+        endBoundary: parseInt(newBoundary[1], 10),
         errorMessage: ''
       });
     }
@@ -138,7 +145,7 @@ class Graph extends Component {
     //   setIntStorage('93V7CR3ActSZVCwkr3Xv', itemsArray);
     // }
       await axios.post('http://localhost:7000/history', {
-        equation: event.target.elements.equation.value,
+        equation: this.state.equation,
         startBoundary: this.state.startBoundary,
         endBoundary: this.state.endBoundary
       }).then((res) => {
@@ -150,14 +157,18 @@ class Graph extends Component {
   render() {
     return(
       <div>
-        <h2>Graph</h2>
         <hr />
+        <h2>Graph</h2>
         { this.state.errorMessage && <p className="text-danger">{ this.state.errorMessage }</p>}
         <form onSubmit={this.handleSubmit}>
-          <input type="text" id="myInput"  data-list="Ada, Java, JavaScript, Brainfuck, LOLCODE, Node.js, Ruby on Rails"  name="equation" className="question" onChange={this.handleEquationChange} value={this.state.clickedEquation} required/>
-          <label htmlFor="equation"><span>sin(x)</span></label>
-          <input type="text" name="boundaries" className="question" onChange={this.handleBoundaryChange} />
-          <label htmlFor="boundaries"><span>Boundary: -6,6</span></label>
+          <div className="field">
+            <input type="text" id="myInput" name="equation" className="textbox" onChange={this.handleEquationChange} value={this.state.equation} placeholder="Equation" required/>
+            
+          </div>
+          <div className="field">
+            <input type="text" placeholder="Boundary: -6,6" name="boundaries" className="textbox" onChange={this.handleBoundaryChange} />
+            
+          </div>
           <button type="submit" className="btn btn-outline-dark m-3">Draw</button>
           <button type="button" className="btn btn-outline-dark m-3" onClick={this.printCanvasOnly}>Print</button>
         </form>

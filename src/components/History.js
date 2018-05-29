@@ -10,7 +10,7 @@ class History extends React.Component {
       history: [],
       clickedEquation: '',
       clickedStartBoundary: '',
-      clickedEndBoundary: ''
+      clickedEndBoundary: '',
     }
   }
   
@@ -44,25 +44,26 @@ class History extends React.Component {
       this.setState({
         history: res.data
       });
-      console.log(this.state.history);
     }).catch(() => {});
   };
   
   render() {
     return(
         <div className="row">
-        <div className="col-md-10">
-          <Graph {...this.state}/>
-        </div>
-        <div className="col-md-2">
-          <h2 className="App-title m-2">History</h2>
-          <button type="button" className="btn btn-outline-dark m-2" onClick={this.updateData}>Update History</button>
-          <div className="list-group">
+        <div className="col-md-12">
+          <p>History <a className="btn btn-outline-secondary inline" onClick={this.updateData}>Update History</a></p>
+          <div className="pointer" data-spy="scroll">
             {this.state.history.map((user,i) => {
-              return <a key={i} onClick={(e) => this.useItem(e,user)} className="list-group-item list-group-item-action">{user.equation}</a>
+                if (user.equation !== undefined) {
+                  return <a className="m-1" key={i} onClick={(e) => this.useItem(e,user)}>{user.equation}</a>
+                }
+                return false;
             })}
           </div>
         </div>
+          <div className="col-md-12">
+            <Graph {...this.state}/>
+          </div>
         </div>
     );
   }

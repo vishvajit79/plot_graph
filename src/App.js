@@ -9,10 +9,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to Function Plot Application</h1>
+          <h1 className="App-title col-md-12">Welcome to Function Plot Application</h1>
         </header>
         <div className="m-5">
-        
         <History/>
         </div>
       </div>
