@@ -11,10 +11,9 @@ class Graph extends Component {
     super(props);
     this.state = {
       equation: '',
-      startBoundary: -6,
+      startBoundary: -5,
       endBoundary: 5,
       errorMessage: '',
-      clickedEquation: '',
     };
   }
   
@@ -45,7 +44,7 @@ class Graph extends Component {
           target: '#quadratic-with-options',
           width: 350,
           height: 350,
-          disableZoom: true,
+          disableZoom: false,
           xAxis: {
             label: 'x - axis',
             domain: [this.state.startBoundary, this.state.endBoundary]
@@ -99,14 +98,6 @@ class Graph extends Component {
         endBoundary: parseInt(newBoundary[1], 10),
         errorMessage: ''
       });
-    }
-    else {
-      if(this.state.startBoundary === '' || this.state.endBoundary === '' || this.state.startBoundary === null || this.state.endBoundary === null){
-        this.setState({
-          startBoundary: -5,
-          endBoundary: 5
-        });
-      }
     }
   };
   
@@ -171,6 +162,7 @@ class Graph extends Component {
           </div>
           <button type="submit" className="btn btn-outline-dark m-3">Draw</button>
           <button type="button" className="btn btn-outline-dark m-3" onClick={this.printCanvasOnly}>Print</button>
+          {/* < div id="quadratic-with-options" className="text-center"></div> */}
         </form>
       </div>
     );
