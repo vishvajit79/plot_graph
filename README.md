@@ -1,4 +1,4 @@
-# Accenture React Exercise
+# React Plot Graph Web App
 
 Install 
 ```shell
